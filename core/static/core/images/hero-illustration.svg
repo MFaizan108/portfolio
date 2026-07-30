@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-labelledby="title">
+  <title id="title">Placeholder developer illustration</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#131a2a"/>
+      <stop offset="100%" stop-color="#0f1420"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" rx="24" fill="url(#bg)" stroke="#223049" stroke-width="2"/>
+  <circle cx="240" cy="180" r="70" fill="url(#accent)" opacity="0.15"/>
+  <rect x="120" y="240" width="240" height="150" rx="12" fill="#0a0e17" stroke="#223049" stroke-width="2"/>
+  <rect x="140" y="264" width="200" height="10" rx="5" fill="#22d3ee" opacity="0.6"/>
+  <rect x="140" y="286" width="160" height="10" rx="5" fill="#3b82f6" opacity="0.5"/>
+  <rect x="140" y="308" width="180" height="10" rx="5" fill="#22d3ee" opacity="0.4"/>
+  <rect x="140" y="330" width="120" height="10" rx="5" fill="#3b82f6" opacity="0.4"/>
+  <circle cx="240" cy="150" r="36" fill="#182238" stroke="url(#accent)" stroke-width="3"/>
+  <text x="240" y="160" text-anchor="middle" font-family="Consolas, monospace" font-size="28" fill="#22d3ee">&lt;/&gt;</text>
+</svg>

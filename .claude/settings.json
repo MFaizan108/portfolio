@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/python.exe -m pip install Pillow --quiet)",
+      "Bash(.venv/Scripts/python.exe -c \"import PIL; print\\(PIL.__version__\\)\")",
+      "Bash(.venv/Scripts/python.exe manage.py makemigrations core)",
+      "Bash(.venv/Scripts/python.exe manage.py migrate)",
+      "Bash(.venv/Scripts/python.exe manage.py check)",
+      "Bash(.venv/Scripts/python.exe manage.py runserver 8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8000/projects/gsms/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8000/projects/smart-attendance-system/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8000/admin/)",
+      "Bash(curl -s http://127.0.0.1:8000/ -o /tmp/home.html)",
+      "Read(//tmp/**)",
+      "Bash(kill %1)",
+      "Bash(.venv/Scripts/python.exe manage.py shell -c \"from django.contrib.auth.models import User; print\\(User.objects.filter\\(is_superuser=True\\).exists\\(\\)\\)\")",
+      "Bash(python -c ' *)"
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}{{ project.title }} — Muhammad Faizan Ur Rahman{% endblock %}
+
+{% block content %}
+<section class="section project-detail">
+  <div class="container">
+    <a href="{% url 'core:home' %}#projects" class="back-link fade-in">&larr; Back to Projects</a>
+
+    <div class="project-detail-header fade-in">
+      {% if project.badge %}<span class="badge">{{ project.badge }}</span>{% endif %}
+      <h1>{{ project.title }}</h1>
+      <p class="hero-desc">{{ project.short_description }}</p>
+      <div class="tech-stack">
+        {% for tech in project.tech_list %}<span class="tech-pill">{{ tech }}</span>{% endfor %}
+      </div>
+      <div class="project-actions">
+        {% if project.live_demo_url %}<a href="{{ project.live_demo_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>{% endif %}
+        {% if project.github_url %}<a href="{{ project.github_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">GitHub</a>{% endif %}
+      </div>
+    </div>
+
+    {% if project.has_case_study %}
+      <div class="case-study fade-in">
+        {% if project.problem %}
+          <div class="case-block">
+            <h2>Problem</h2>
+            <p>{{ project.problem }}</p>
+          </div>
+        {% endif %}
+        {% if project.solution %}
+          <div class="case-block">
+            <h2>Solution</h2>
+            <p>{{ project.solution }}</p>
+          </div>
+        {% endif %}
+        {% if project.objective %}
+          <div class="case-block">
+            <h2>Objective</h2>
+            <p>{{ project.objective }}</p>
+          </div>
+        {% endif %}
+
+        {% if project.features.all %}
+          <div class="case-block">
+            <h2>Core Features</h2>
+            <ul class="feature-checklist">
+              {% for feature in project.features.all %}<li>{{ feature.text }}</li>{% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% if project.architecture_text %}
+          <div class="case-block">
+            <h2>System Architecture</h2>
+            <div class="architecture-diagram">{{ project.architecture_text }}</div>
+          </div>
+        {% endif %}
+
+        {% if project.screenshots.all %}
+          <div class="case-block">
+            <h2>Screenshots</h2>
+            <div class="screenshots-grid">
+              {% for shot in project.screenshots.all %}
+                <figure>
+                  <img src="{{ shot.image.url }}" alt="{{ shot.caption }}">
+                  {% if shot.caption %}<figcaption>{{ shot.caption }}</figcaption>{% endif %}
+                </figure>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if project.challenges.all %}
+          <div class="case-block">
+            <h2>Challenges &amp; Solutions</h2>
+            <div class="challenges-list">
+              {% for c in project.challenges.all %}
+                <div class="challenge-item">
+                  <p><strong>Challenge:</strong> {{ c.challenge }}</p>
+                  <p><strong>Solution:</strong> {{ c.solution }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if project.result %}
+          <div class="case-block">
+            <h2>Result</h2>
+            <p>{{ project.result }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      {% if project.features.all %}
+        <div class="case-block fade-in">
+          <h2>Features</h2>
+          <ul class="feature-checklist">
+            {% for feature in project.features.all %}<li>{{ feature.text }}</li>{% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="case-block fade-in">
+      <h2>Links</h2>
+      <div class="project-actions">
+        {% if project.github_url %}<a href="{{ project.github_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">GitHub</a>{% endif %}
+        {% if project.live_demo_url %}<a href="{{ project.live_demo_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>{% endif %}
+        {% if not project.github_url and not project.live_demo_url %}
+          <p class="hero-desc">Links coming soon.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

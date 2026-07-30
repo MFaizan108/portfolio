@@ -1,0 +1,252 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text fade-in">
+      <p class="eyebrow">Hi, I'm</p>
+      <h1>Muhammad Faizan Ur Rahman</h1>
+      <h2 class="hero-role">Backend Developer &amp; AI Enthusiast</h2>
+      <p class="hero-desc">
+        I build scalable web applications and backend systems using Python, Django, PostgreSQL,
+        and modern web technologies. I am passionate about developing practical software solutions
+        that solve real-world problems.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Projects</a>
+        <a href="{% static 'core/files/Muhammad_Faizan_Resume.pdf' %}" class="btn btn-outline" download>Download CV</a>
+        <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      </div>
+      <div class="hero-social">
+        <a href="{{ social.github }}" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="{{ social.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="mailto:{{ social.email }}" aria-label="Email">Email</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-in">
+      <img src="{% static 'core/images/hero-illustration.svg' %}" alt="Developer illustration">
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">About Me</h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I am a BS Artificial Intelligence student at The Islamia University of Bahawalpur with a
+          strong interest in backend development and software engineering. I specialize in Python
+          and Django and have experience working with databases, REST APIs, authentication systems,
+          and business management applications.
+        </p>
+        <p>
+          I enjoy building practical software solutions and continuously improving my skills in
+          backend development, artificial intelligence, and modern web technologies.
+        </p>
+      </div>
+      <div class="quick-facts card">
+        <h3>Quick Facts</h3>
+        <ul>
+          {% for fact in quick_facts %}
+            <li>{{ fact }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title fade-in">Skills &amp; Technologies</h2>
+    <div class="skills-grid">
+      {% for category in skill_categories %}
+        <div class="card skill-card fade-in">
+          <h3>{{ category.icon }} {{ category.name }}</h3>
+          <ul class="skill-tags">
+            {% for skill in category.skills %}
+              <li>{{ skill }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects -->
+<section id="projects" class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Featured Projects</h2>
+
+    {% if gsms %}
+    <div class="project-card project-card-featured fade-in">
+      <div class="project-card-image">
+        {% if gsms.thumbnail %}
+          <img src="{{ gsms.thumbnail.url }}" alt="{{ gsms.title }}">
+        {% else %}
+          <img src="{% static 'core/images/project-placeholder.svg' %}" alt="{{ gsms.title }}">
+        {% endif %}
+        {% if gsms.badge %}<span class="badge">{{ gsms.badge }}</span>{% endif %}
+      </div>
+      <div class="project-card-body">
+        <h3>{{ gsms.title }}</h3>
+        <p>{{ gsms.short_description }}</p>
+        <ul class="project-feature-list">
+          {% for feature in gsms.features.all|slice:":8" %}
+            <li>{{ feature.text }}</li>
+          {% endfor %}
+        </ul>
+        <div class="tech-stack">
+          {% for tech in gsms.tech_list %}<span class="tech-pill">{{ tech }}</span>{% endfor %}
+        </div>
+        <div class="project-actions">
+          {% if gsms.live_demo_url %}<a href="{{ gsms.live_demo_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>{% endif %}
+          {% if gsms.github_url %}<a href="{{ gsms.github_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">GitHub Repository</a>{% endif %}
+          <a href="{% url 'core:project_detail' gsms.slug %}" class="btn btn-ghost btn-sm">View Case Study</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="projects-grid">
+      {% for project in other_projects %}
+        <div class="project-card fade-in">
+          <div class="project-card-image">
+            {% if project.thumbnail %}
+              <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}">
+            {% else %}
+              <img src="{% static 'core/images/project-placeholder.svg' %}" alt="{{ project.title }}">
+            {% endif %}
+          </div>
+          <div class="project-card-body">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.short_description }}</p>
+            <div class="tech-stack">
+              {% for tech in project.tech_list %}<span class="tech-pill">{{ tech }}</span>{% endfor %}
+            </div>
+            <div class="project-actions">
+              {% if project.live_demo_url %}<a href="{{ project.live_demo_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>{% endif %}
+              {% if project.github_url %}<a href="{{ project.github_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">GitHub</a>{% endif %}
+              <a href="{% url 'core:project_detail' project.slug %}" class="btn btn-ghost btn-sm">View Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title fade-in">Experience</h2>
+    {% for job in experience %}
+      <div class="card experience-card fade-in">
+        <div class="experience-header">
+          <div>
+            <h3>{{ job.role }}</h3>
+            <p class="experience-company">{{ job.company }}</p>
+          </div>
+          <span class="experience-duration">{{ job.duration }}</span>
+        </div>
+        <ul>
+          {% for item in job.responsibilities %}<li>{{ item }}</li>{% endfor %}
+        </ul>
+        <div class="tech-stack">
+          {% for tech in job.technologies %}<span class="tech-pill">{{ tech }}</span>{% endfor %}
+        </div>
+        {% if job.certificate_url %}
+          <a href="{{ job.certificate_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">View Certificate</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Education</h2>
+    {% for edu in education %}
+      <div class="card education-card fade-in">
+        <h3>{{ edu.degree }}</h3>
+        <p class="experience-company">{{ edu.institution }}</p>
+        <span class="experience-duration">{{ edu.duration }}</span>
+        <h4>Relevant Coursework</h4>
+        <ul class="skill-tags">
+          {% for course in edu.coursework %}<li>{{ course }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- GitHub Activity -->
+<section id="github" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title fade-in">My GitHub</h2>
+    <p class="fade-in">
+      <a href="{{ social.github }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">View GitHub Profile</a>
+    </p>
+    <div class="repos-grid">
+      {% for repo in featured_repos %}
+        <a href="{{ repo.url }}" target="_blank" rel="noopener" class="card repo-card fade-in">
+          <h3>{{ repo.name }}</h3>
+          <p>{{ repo.description }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Resume -->
+<section id="resume" class="section">
+  <div class="container resume-section fade-in">
+    <h2 class="section-title">Resume / CV</h2>
+    <p>Want the full picture of my experience and education in one place?</p>
+    <div class="hero-actions">
+      <a href="{% static 'core/files/Muhammad_Faizan_Resume.pdf' %}" class="btn btn-primary" download>Download My Resume</a>
+      <a href="{% static 'core/files/Muhammad_Faizan_Resume.pdf' %}" class="btn btn-outline" target="_blank" rel="noopener">View Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title fade-in">Let's Work Together</h2>
+    <p class="section-subtitle fade-in">
+      Have a project in mind or looking for a backend developer? Feel free to get in touch.
+    </p>
+    <div class="contact-grid">
+      <form class="card contact-form fade-in" method="post" action="{% url 'core:home' %}#contact">
+        {% csrf_token %}
+        {{ form.name }}
+        {{ form.email }}
+        {{ form.subject }}
+        {{ form.message }}
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+      <div class="contact-info card fade-in">
+        <p><strong>Email:</strong> <a href="mailto:{{ social.email }}">{{ social.email }}</a></p>
+        <p><strong>LinkedIn:</strong> <a href="{{ social.linkedin }}" target="_blank" rel="noopener">{{ social.linkedin }}</a></p>
+        <p><strong>GitHub:</strong> <a href="{{ social.github }}" target="_blank" rel="noopener">{{ social.github }}</a></p>
+        {% if social.fiverr or social.upwork %}
+          <p><strong>Freelance:</strong>
+            {% if social.fiverr %}<a href="{{ social.fiverr }}" target="_blank" rel="noopener">Fiverr</a>{% endif %}
+            {% if social.upwork %}<a href="{{ social.upwork }}" target="_blank" rel="noopener">Upwork</a>{% endif %}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
