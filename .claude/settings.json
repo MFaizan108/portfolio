@@ -15,7 +15,22 @@
       "Read(//tmp/**)",
       "Bash(kill %1)",
       "Bash(.venv/Scripts/python.exe manage.py shell -c \"from django.contrib.auth.models import User; print\\(User.objects.filter\\(is_superuser=True\\).exists\\(\\)\\)\")",
-      "Bash(python -c ' *)"
+      "Bash(python -c ' *)",
+      "Bash(./.venv/Scripts/python.exe manage.py shell -c \"from django.contrib.auth import get_user_model; U=get_user_model\\(\\); print\\(list\\(U.objects.filter\\(is_superuser=True\\).values_list\\('username', flat=True\\)\\)\\)\")",
+      "Bash(./.venv/Scripts/pip.exe install *)",
+      "Bash(./.venv/Scripts/python.exe manage.py check --deploy)",
+      "Bash(./.venv/Scripts/python.exe manage.py collectstatic --noinput)",
+      "Bash(taskkill //F //PID 5832)",
+      "Bash(nohup ./.venv/Scripts/python.exe manage.py runserver 127.0.0.1:8000 --noreload)",
+      "Bash(disown)",
+      "Bash(curl -s -o /dev/null -w \"home: %{http_code}\\\\n\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"gsms: %{http_code}\\\\n\" http://127.0.0.1:8000/projects/gsms/)",
+      "Bash(curl -s -o /dev/null -w \"admin: %{http_code}\\\\n\" http://127.0.0.1:8000/admin/)",
+      "Bash(curl -s -o /dev/null -w \"media: %{http_code}\\\\n\" \"http://127.0.0.1:8000/media/projects/screenshots/Screenshot_2026-07-30_005955_738vcFJ.png\")",
+      "Bash(./.venv/Scripts/python.exe manage.py check)",
+      "Bash(taskkill //F //IM python.exe)",
+      "Bash(CLOUDINARY_URL=\"cloudinary://123456789012345:abcdefghijklmnopqrstuvwxyz12@demo\" DATABASE_URL=\"postgres://user:pass@localhost:5432/dummydb\" ./.venv/Scripts/python.exe manage.py check)",
+      "Bash(./.venv/Scripts/python.exe -c ' *)"
     ]
   }
 }
