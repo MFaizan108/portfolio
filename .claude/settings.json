@@ -30,7 +30,11 @@
       "Bash(./.venv/Scripts/python.exe manage.py check)",
       "Bash(taskkill //F //IM python.exe)",
       "Bash(CLOUDINARY_URL=\"cloudinary://123456789012345:abcdefghijklmnopqrstuvwxyz12@demo\" DATABASE_URL=\"postgres://user:pass@localhost:5432/dummydb\" ./.venv/Scripts/python.exe manage.py check)",
-      "Bash(./.venv/Scripts/python.exe -c ' *)"
+      "Bash(./.venv/Scripts/python.exe -c ' *)",
+      "Bash(./.venv/Scripts/pip.exe show *)",
+      "Bash(git remote *)",
+      "Bash(chmod +x build.sh)",
+      "Bash(DJANGO_DEBUG=False DJANGO_SECRET_KEY=\"test-secret-key-1234567890abcdefghij\" DJANGO_ALLOWED_HOSTS=\"myportfolio.onrender.com\" ./.venv/Scripts/python.exe manage.py check --deploy)"
     ]
   }
 }

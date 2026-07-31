@@ -40,26 +40,13 @@ QUICK_FACTS = [
     "📍 Pakistan",
 ]
 
-EXPERIENCE = [
-    {
-        "role": "Software Developer Intern",
-        "company": "Internee.pk",
-        "duration": "Ongoing",
-        "responsibilities": [
-            "Working on real-world software development tasks as part of the internship program",
-            "Applying Python and Django skills to practical projects",
-            "Collaborating on tasks involving backend development and database design",
-        ],
-        "technologies": ["Python", "Django", "Git", "GitHub"],
-        "certificate_url": "",
-    },
-]
+EXPERIENCE = []
 
 EDUCATION = [
     {
         "degree": "Bachelor of Science in Artificial Intelligence",
         "institution": "The Islamia University of Bahawalpur (IUB)",
-        "duration": "Expected Graduation: TBD",
+        "duration": "Expected Graduation: 2028",
         "coursework": [
             "Object-Oriented Programming",
             "Data Structures & Algorithms",

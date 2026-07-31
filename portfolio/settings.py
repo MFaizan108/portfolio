@@ -14,9 +14,15 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Loads .env for local dev only — on Render, real env vars are set via the
+# dashboard and no .env file exists, so this is a no-op there.
+load_dotenv(BASE_DIR / ".env")
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -35,6 +41,22 @@ ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS",
     "127.0.0.1,localhost"
 ).split(",")
+
+# Render terminates TLS and proxies to the app over plain HTTP, so Django needs
+# this to know a request was actually HTTPS (affects is_secure(), secure cookies).
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Django 4+ checks the Origin header against this list for unsafe (POST) requests —
+# without it, the contact form's CSRF check fails in production with a real domain.
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{host}" for host in ALLOWED_HOSTS if host not in ("127.0.0.1", "localhost")
+]
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 60 * 60 * 24 * 7  # 1 week; raise once HTTPS is confirmed working
 
 
 # Application definition
