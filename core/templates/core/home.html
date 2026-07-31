@@ -109,7 +109,7 @@
         <div class="project-actions">
           {% if gsms.live_demo_url %}<a href="{{ gsms.live_demo_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>{% endif %}
           {% if gsms.github_url %}<a href="{{ gsms.github_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">GitHub Repository</a>{% endif %}
-          <a href="{% url 'core:project_detail' gsms.slug %}" class="btn btn-ghost btn-sm">View Case Study</a>
+          <a href="{% url 'core:project_detail' gsms.slug %}" class="btn btn-ghost btn-sm stretched-link">View Case Study</a>
         </div>
       </div>
     </div>
