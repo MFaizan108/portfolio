@@ -77,81 +77,10 @@ def seed_projects(apps, schema_editor):
     ]):
         ProjectChallenge.objects.create(project=gsms, challenge=challenge, solution=solution, order=i)
 
-    attendance = Project.objects.create(
-        title="Smart Attendance System",
-        slug="smart-attendance-system",
-        badge="",
-        short_description=(
-            "A face-recognition-based attendance management system built with Python "
-            "and Django to automate user identification and attendance tracking."
-        ),
-        tech_stack="Python, Django, OpenCV, Face Recognition, PostgreSQL/MySQL",
-        github_url="",
-        live_demo_url="",
-        is_featured=True,
-        order=2,
-    )
-    for i, text in enumerate([
-        "Face-recognition-based user identification",
-        "Automated attendance logging",
-        "Attendance history and reporting",
-    ]):
-        ProjectFeature.objects.create(project=attendance, text=text, order=i)
-
-    door_lock = Project.objects.create(
-        title="Smart Door Lock System",
-        slug="smart-door-lock-system",
-        badge="",
-        short_description=(
-            "An IoT-based smart door access system integrating face recognition with "
-            "Arduino hardware to provide automated and secure door access."
-        ),
-        tech_stack="Python, Face Recognition, OpenCV, Arduino UNO, Servo Motor, PIR Sensor",
-        github_url="",
-        live_demo_url="",
-        is_featured=True,
-        order=3,
-    )
-    for i, text in enumerate([
-        "Face-recognition-based access control",
-        "Arduino-driven servo motor door lock",
-        "PIR motion detection",
-    ]):
-        ProjectFeature.objects.create(project=door_lock, text=text, order=i)
-
-    object_detection = Project.objects.create(
-        title="AI Object Detection & Voice Alert System",
-        slug="ai-object-detection-voice-alert-system",
-        badge="",
-        short_description=(
-            "A real-time object detection system using YOLO and computer vision that "
-            "identifies objects and provides voice-based alerts using text-to-speech "
-            "technology."
-        ),
-        tech_stack="Python, YOLOv8, Ultralytics, OpenCV, pyttsx3, Arduino",
-        github_url="",
-        live_demo_url="",
-        is_featured=True,
-        order=4,
-    )
-    for i, text in enumerate([
-        "Real-time object detection with YOLOv8",
-        "Voice alerts via text-to-speech",
-        "Arduino integration for hardware alerts",
-    ]):
-        ProjectFeature.objects.create(project=object_detection, text=text, order=i)
-
 
 def unseed_projects(apps, schema_editor):
     Project = apps.get_model("core", "Project")
-    Project.objects.filter(
-        slug__in=[
-            "gsms",
-            "smart-attendance-system",
-            "smart-door-lock-system",
-            "ai-object-detection-voice-alert-system",
-        ]
-    ).delete()
+    Project.objects.filter(slug__in=["gsms"]).delete()
 
 
 class Migration(migrations.Migration):
