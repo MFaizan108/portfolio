@@ -175,6 +175,10 @@ STORAGES = {
     },
 }
 
+# django-cloudinary-storage's collectstatic override reads this legacy setting
+# directly instead of STORAGES, so it must be kept in sync with "staticfiles" above.
+STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
+
 # Media files (admin-uploaded project screenshots/thumbnails)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
