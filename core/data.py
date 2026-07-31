@@ -67,6 +67,8 @@ SOCIAL_LINKS = {
 
 GITHUB_USERNAME = "MFaizan108"
 
+HERO_PHOTO_URL = "https://res.cloudinary.com/whiujqq9/image/upload/v1785529430/portfolio/hero_profile.png"
+
 FEATURED_REPOS = [
     {"name": "GSMS-Django-Project", "description": "General Store Management System built with Django & PostgreSQL.", "url": "https://github.com/MFaizan108/GSMS-Django-Project"},
     # {"name": "smart-attendance-system", "description": "Face-recognition-based attendance tracking with Django.", "url": "https://github.com/yourusername/smart-attendance-system"},

@@ -30,6 +30,7 @@ def home(request):
         "education": data.EDUCATION,
         "social": data.SOCIAL_LINKS,
         "github_username": data.GITHUB_USERNAME,
+        "hero_photo_url": data.HERO_PHOTO_URL,
         "featured_repos": data.FEATURED_REPOS,
         "form": form,
     }
