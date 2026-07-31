@@ -183,20 +183,9 @@ STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Contact form notifications — falls back to printing emails to the console
-# when SMTP credentials aren't set, so local dev needs no email account.
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-
-if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
-    EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
-    EMAIL_USE_TLS = True
-else:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER or "webmaster@localhost"
+# Contact form notifications — sent via the Resend HTTP API (see core/views.py).
+# Render blocks outbound raw SMTP, so a plain Django SMTP backend can't be used here.
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 CONTACT_RECIPIENT_EMAIL = os.environ.get("CONTACT_RECIPIENT_EMAIL", "muhammadfaizanurrahman.08@gmail.com")
 
 # Default primary key field type

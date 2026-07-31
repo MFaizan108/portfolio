@@ -1,6 +1,6 @@
+import requests
 from django.conf import settings
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 
 from . import data
@@ -8,21 +8,35 @@ from .forms import ContactForm
 from .models import Project
 
 
+def _notify_contact_message(contact_message):
+    if not settings.RESEND_API_KEY:
+        return
+    try:
+        requests.post(
+            "https://api.resend.com/emails",
+            headers={"Authorization": f"Bearer {settings.RESEND_API_KEY}"},
+            json={
+                "from": "Portfolio Contact <onboarding@resend.dev>",
+                "to": [settings.CONTACT_RECIPIENT_EMAIL],
+                "reply_to": contact_message.email,
+                "subject": f"Portfolio contact: {contact_message.subject}",
+                "text": (
+                    f"From: {contact_message.name} <{contact_message.email}>\n\n"
+                    f"{contact_message.message}"
+                ),
+            },
+            timeout=10,
+        )
+    except requests.RequestException:
+        pass
+
+
 def home(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
             contact_message = form.save()
-            send_mail(
-                subject=f"Portfolio contact: {contact_message.subject}",
-                message=(
-                    f"From: {contact_message.name} <{contact_message.email}>\n\n"
-                    f"{contact_message.message}"
-                ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.CONTACT_RECIPIENT_EMAIL],
-                fail_silently=True,
-            )
+            _notify_contact_message(contact_message)
             messages.success(request, "Thanks for reaching out! I'll get back to you soon.")
             return redirect("/#contact")
         messages.error(request, "Please fix the errors below and try again.")
